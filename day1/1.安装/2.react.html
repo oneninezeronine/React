@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <!-- 提供React.createElement帮你构造虚拟DOM -->
+    <script src="react.js"></script>
+    <!-- 提供ReactDOM.render帮你虚拟DOM转化真实DOM -->
+    <script src="react-dom.js"></script>
+    <script>
+        // react提供了全局变量window.React
+        // react-dom提供了全局变量window.ReactDOM
+        console.log(window)
+        // 函数会执行，变成一个对象，这个对象其实是描述真实DOM的
+        const data = {
+            name: 'yao'
+        }
+        const template = React.createElement('div', null, data.name)
+        const el = document.querySelector('#demo')
+        console.log(template)
+        ReactDOM.render(template, el)
+    </script>
+</body>
+
+</html>

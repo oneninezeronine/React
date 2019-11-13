@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+$hight:50px;
+
+header {
+    height: $hight;
+    line-height: $hight;
+    text-align: center;
+    color: white;
+    background-color: red;
+}
