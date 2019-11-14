@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 // 全局样式
 import 'weui'
 import './index.css';
+
+
 // 根组件
 import App from './components/App/App';
 // sw服务，用于webapp开发

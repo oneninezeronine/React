@@ -33,3 +33,56 @@ yarn和react都是facebook
 ```bash
 npm install styled-components
 ```
+
+# dva
+
+安装 dva-cli
+通过 npm 安装 dva-cli 并确保版本是 0.9.1 或以上。
+```bash
+npm install dva-cli -g
+dva -v
+dva-cli version 0.9.1
+```
+创建一个项目
+```bash
+dva new dva-quickstart
+cd dva-quickstart
+npm start
+```
+
+- mock 模拟数据 里面放着空的json静态数据，写死的数据，用于测试
+- public 模板文件
+- src
+  - assets 静态资源文件，图片，样式
+  - components 组件
+  - models redux仓库
+  - routes react-router路由，页面组件
+  - services api接口，封装接口，获取数据
+  - utils 里面是一些封装的工具库，比如帮你封装request来触发ajax，封装cookie，本地存储
+  - index.css 全局样式
+  - index.js 入口文件
+  - router.js 路由配置文件
+
+修改`node_modules`文件夹下`dva/lib/index.js`第22行改为下面：
+```
+var _createHashHistory = _interopRequireDefault(require("history").createHashHistory);
+```
+
+配置路由`<Route path="/wechat" exact component={Wechat} />`当匹配到`/wechat`加载`Wechat`组件
+
+```js
+import React from 'react';
+import { Router, Route, Switch } from 'dva/router';
+import Wechat from './routes/Wechat/Wechat'
+function RouterConfig({ history }) {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path="/wechat" exact component={Wechat} />
+      </Switch>
+    </Router>
+  );
+}
+
+export default RouterConfig;
+```

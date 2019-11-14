@@ -1,0 +1,11 @@
+<template name="Contact">
+  <div>
+    <Footer />
+  </div>
+</template>
+<script>
+  import Footer from '../../components/Footer/Footer'
+  export default class {
+
+  }
+</script>

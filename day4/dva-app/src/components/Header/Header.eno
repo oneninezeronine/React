@@ -1,0 +1,13 @@
+<template name="Header">
+    <header>微信</header>
+</template>
+<style>
+    header{
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 100%;
+        background-color: red;
+        color: white;
+    }
+</style>

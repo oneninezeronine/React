@@ -1,0 +1,17 @@
+<template name="Wechat">
+    <div>
+        <Header />
+        <Search />
+        <Panel />
+        <Footer />
+    </div>
+</template>
+<script>
+    import Header from '../../components/Header/Header'
+    import Search from '../../components/Search/Search'
+    import Panel from '../../components/Panel/Panel'
+    import Footer from '../../components/Footer/Footer'
+    export default class {
+
+    }
+</script>
