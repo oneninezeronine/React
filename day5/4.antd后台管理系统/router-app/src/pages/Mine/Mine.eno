@@ -1,0 +1,19 @@
+<template name="Mine">
+    <div>
+        我的页面
+        <ul>
+            <Link to="/detail?id=1"><li>1</li></Link>
+            <Link to="/detail"><li>2</li></Link>
+            <Link to="/detail"><li>3</li></Link>
+            <Link to="/detail"><li>4</li></Link>
+        </ul>
+    </div>
+</template>
+<script>
+    import {
+        Link
+    } from 'react-router-dom'
+    export default class {
+
+    }
+</script>

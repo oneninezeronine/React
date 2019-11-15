@@ -155,3 +155,205 @@ export default connect((state)=>{
     }
 })
 ```
+
+# 路由
+
+- redux 民间
+- react-router 民间 
+- react 官方
+
+
+react-router和react可以没有任何关系
+
+类似vue-router路由
+
+- react-router
+- react-router-dom 包含了react-router核心
+
+[官方文档](https://reacttraining.com/react-router/web/guides/quick-start)
+
+在模块化项目里面安装以下模块
+```bash
+npm install react-router-dom
+cnpm install react-router-dom
+
+# npm install yarn -g
+yarn add react-router-dom
+```
+
+使用`HashRouter`或者`BrowserRouter`，一种是带#号的路由模式，一种不带
+```js
+import Home from './pages/Home/Home'
+import {
+    HashRouter as R
+} from 'react-router-dom'
+ReactDOM.render(
+    <R>
+        <Home/>
+    </R>
+, document.getElementById('root'));
+```
+
+我们可以配合`<switch>`和`<route>`
+```js
+<R>
+    <Switch>
+        <Route path="/home">
+            <Home/>
+        </Route>
+        <Route path="/mine">
+            <Mine/>
+        </Route>
+    </Switch>
+</R>
+```
+你可以配合`jsx`去封装路由配置
+```jsx
+const router = [
+    {
+        path: '/home',
+        component: <Home/>
+    },
+    {
+        path: '/mine',
+        component: <Mine/>
+    },
+]
+ReactDOM.render(
+    <R>
+        <Switch>
+            {router.map((item,index)=>{
+                return <Route key={index} path={item.path}>
+                    {item.component}
+                </Route>
+            })}
+        </Switch>
+    </R>
+, document.getElementById('root'));
+```
+嵌套路由的写法
+```js
+<Switch>
+    <Route path="/home">
+        <Home/>
+        <Route path="/home/a">
+            <Childa/>
+        </Route>
+        <Route path="/home/b">
+            <Childb/>
+        </Route>
+    </Route>
+
+    <Route path="/mine">
+        <Mine/>
+    </Route>
+</Switch>
+```
+如果你需要封装，你可以这样写
+```js
+const router = [
+    {
+        path: '/home',
+        component: <Home/>,
+        children : [{
+            path: '/home/a',
+            component: <Childa/>
+        }, {
+            path: '/home/b',
+            component: <Childb/>
+        }]
+    },
+    {
+        path: '/mine',
+        component: <Mine/>
+    },
+]
+ReactDOM.render(
+    <R>
+        <Switch>
+            {router.map((item,index)=>{
+                return <Route key={index} path={item.path}>
+                    {item.component}
+                    {
+                        item.children?(item.children.map((item2, index2)=>{
+                            return <Route key={index2} path={item2.path}>
+                                {item2.component}
+                            </Route>
+                        })):''
+                    }
+                </Route>
+            })}
+        </Switch>
+    </R>
+, document.getElementById('root'));
+```
+
+路由守卫，交给外层一个函数来实现路由拦截
+```js
+<R>
+    {(() => {
+        if (window.sessionStorage.getItem('login')*1) {
+            return <Switch>{router.map((item, index) => {
+                return <Route key={index} path={item.path}>
+                    {item.component}
+                    {
+                        item.children ? (item.children.map((item2, index2) => {
+                            return <Route key={`${index}-${index2}`} path={item2.path}>
+                                {item2.component}
+                            </Route>
+                        })) : ''
+                    }
+                </Route>
+            })}</Switch>
+        } else {
+            // 路由重定向
+            return <div>返回登录页面</div>
+        }
+    })()}
+</R>
+```
+
+声明式导航和编程式导航
+```html
+<Link to="/home/a">一</Link>
+<Link to="/home/b">二</Link>
+```
+
+编程式导航，配合`<withRouter>`帮你把组件进阶为高阶组件，允许`this.props.location`和`this.props.history`，用于获取路由参数，用于编程式导航
+```html
+<template name="Detail">
+    <div>详情页
+        <button onClick={this.toHomePage.bind(this)}>编程式导航</button>
+    </div>
+</template>
+<script>
+    import {
+        useParams,
+        withRouter
+    } from "react-router-dom";
+    export default withRouter(class {
+        constructor(props){
+            super(props)
+            
+        }
+        toHomePage(){
+            this.props.history.push('/home')
+        }
+        componentDidMount(){
+            console.log(this)
+            // console.log(useParams())
+        }
+    })
+</script>
+```
+
+重定向
+```html
+<Redirect to="/home" />
+```
+
+# socket
+
+https://github.com/Wscats/socket.io
+
+https://github.com/Wscats/node-tutorial/issues/7

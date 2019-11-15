@@ -1,0 +1,24 @@
+<template name="Detail">
+    <div>详情页
+        <button onClick={this.toHomePage.bind(this)}>编程式导航</button>
+    </div>
+</template>
+<script>
+    import {
+        useParams,
+        withRouter
+    } from "react-router-dom";
+    export default withRouter(class {
+        constructor(props){
+            super(props)
+            
+        }
+        toHomePage(){
+            this.props.history.push('/home')
+        }
+        componentDidMount(){
+            console.log(this)
+            // console.log(useParams())
+        }
+    })
+</script>

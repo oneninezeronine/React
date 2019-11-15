@@ -1,0 +1,15 @@
+<template name="Home">
+    <div>
+        Home页面
+        <Link to="/home/a">一</Link>
+        <Link to="/home/b">二</Link>
+    </div>
+</template>
+<script>
+    import {
+        Link
+    } from 'react-router-dom'
+    export default class {
+
+    }
+</script>
