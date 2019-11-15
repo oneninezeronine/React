@@ -1,4 +1,5 @@
 import { Component as WeElement, createElement as h } from "react";
+import stores from "../../stores";
 
 class Search extends WeElement {
   render() {
@@ -85,7 +86,10 @@ class Search extends WeElement {
   }
 
   getInputValue(event) {
-    console.log(event.target.value);
+    stores.dispatch({
+      type: "SETSEARCHTEXT",
+      searchText: event.target.value
+    });
     this.setState({
       searchText: event.target.value
     });

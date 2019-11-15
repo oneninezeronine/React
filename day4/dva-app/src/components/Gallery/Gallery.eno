@@ -1,0 +1,39 @@
+<template name="Gallery">
+  <div className="weui-gallery" style={{
+      display: this.props.gallery.status?'block':'none'
+    }}>
+    <span className="weui-gallery__img" style={{
+        backgroundImage: `url(${this.props.gallery.imgUrl})`
+    }}></span>
+    <div onClick={this.hideGallery.bind(this)} className="weui-gallery__opr">
+      <a className="weui-gallery__del">
+        <i className="weui-icon-delete weui-icon_gallery-delete"></i>
+      </a>
+    </div>
+  </div>
+</template>
+<script>
+  import {
+    connect
+  } from 'react-redux'
+  export default connect((state) => {
+    return state
+  })(class {
+    constructor(props) {
+      super(props)
+      this.props = props
+      console.log(this)
+    }
+    // 隐藏预览图片
+    hideGallery() {
+      this.props.dispatch({
+        type: 'SETGALLERY',
+        gallery: {
+          status: false,
+          imgUrl: ''
+        }
+      })
+    }
+  })
+
+</script>

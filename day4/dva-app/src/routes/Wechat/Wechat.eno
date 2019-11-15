@@ -4,6 +4,7 @@
         <Search />
         <Panel />
         <Footer />
+        <Gallery />
     </div>
 </template>
 <script>
@@ -11,6 +12,7 @@
     import Search from '../../components/Search/Search'
     import Panel from '../../components/Panel/Panel'
     import Footer from '../../components/Footer/Footer'
+    import Gallery from '../../components/Gallery/Gallery'
     export default class {
 
     }

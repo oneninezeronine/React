@@ -1,6 +1,7 @@
 import { Component as WeElement, createElement as h } from "react";
 import axios from "axios";
 import request from "../../utils/request";
+import stores from "../../stores";
 let bool = true;
 
 class Panel extends WeElement {
@@ -22,7 +23,7 @@ class Panel extends WeElement {
         {
           className: "weui-panel__bd"
         },
-        this.renderNews(this.state.news)
+        this.renderNews(this.state.news, this.state.searchText)
       ),
       h(
         "div",
@@ -52,7 +53,8 @@ class Panel extends WeElement {
   constructor(props) {
     super(props);
     this.state = {
-      news: []
+      news: [],
+      searchText: ""
     };
   }
 
@@ -71,6 +73,12 @@ class Panel extends WeElement {
         news: JSON.parse(window.sessionStorage.getItem("news"))
       });
     }
+
+    stores.subscribe(() => {
+      this.setState({
+        searchText: stores.getState().searchText
+      });
+    });
   }
 
   shouldComponentUpdate() {
@@ -93,9 +101,25 @@ class Panel extends WeElement {
     }
   }
 
-  renderNews(news) {
-    if (news) {
-      let arr = news.map((item, index) => {
+  showGallery(imgUrl) {
+    stores.dispatch({
+      type: "SETGALLERY",
+      gallery: {
+        status: true,
+        imgUrl
+      }
+    });
+  }
+
+  renderNews(news, searchText) {
+    let filterNews = news.filter((item, index) => {
+      if (item.title.indexOf(searchText) >= 0) {
+        return item;
+      }
+    });
+
+    if (filterNews) {
+      let arr = filterNews.map((item, index) => {
         return h(
           "a",
           {
@@ -108,6 +132,7 @@ class Panel extends WeElement {
               className: "weui-media-box__hd"
             },
             h("img", {
+              onClick: this.showGallery.bind(this, item.author.avatar_url),
               className: "weui-media-box__thumb",
               src: item.author.avatar_url,
               alt: ""
